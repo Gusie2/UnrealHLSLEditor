@@ -319,17 +319,23 @@ void FBetterHLSLTokenizer::Identifier()
 
 	EHLSLTokenType TokenType = EHLSLTokenType::CustomIdentifier;
 
-
-	if (HlslPrimitiveTypes.Contains(IdentifierName)) TokenType = EHLSLTokenType::PrimitiveType;
+	if (BoolKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::Bool;
+	else if (HalfKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::Half;
+	else if (FloatKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::Float;
+	else if (DoubleKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::Double;
+	else if (UintKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::Uint;
+	else if (IntKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::Int;
 	else if (HlslFunctions.Contains(IdentifierName)) TokenType = EHLSLTokenType::Function;
 	else if (HlslTypeKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::TypeKeyword;
 	else if (HlslKeywords.Contains(IdentifierName)) TokenType = EHLSLTokenType::Keyword;
-	else if (IdentifierName == "in") TokenType = EHLSLTokenType::InKeyword;
-	else if (IdentifierName == "out") TokenType = EHLSLTokenType::OutKeyword;
-	else if (IdentifierName == "inout") TokenType = EHLSLTokenType::InOutKeyword;
-	else if (IdentifierName == "false") TokenType = EHLSLTokenType::False;
-	else if (IdentifierName == "true") TokenType = EHLSLTokenType::True;
-	else if (IdentifierName == "NULL") TokenType = EHLSLTokenType::Null;
+	else if (IdentifierName.Equals("in", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::InKeyword;
+	else if (IdentifierName.Equals("out", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::OutKeyword;
+	else if (IdentifierName.Equals("inout", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::InOutKeyword;
+	else if (IdentifierName.Equals("false", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::False;
+	else if (IdentifierName.Equals("true", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::True;
+	else if (IdentifierName.Equals("vector", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::Vector;
+	else if (IdentifierName.Equals("matrix", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::Matrix;
+	else if (IdentifierName.Equals("Buffer", ESearchCase::CaseSensitive)) TokenType = EHLSLTokenType::Buffer;
 	else if (IdentifierName.Equals(TEXT("if"), ESearchCase::CaseSensitive))
 	{
 		TokenType = EHLSLTokenType::If;

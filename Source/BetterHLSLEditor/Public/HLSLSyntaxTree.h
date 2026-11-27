@@ -52,7 +52,7 @@ factor			→ unary ( ( "/" | "*" | "%" ) unary )* ;
 unary			→ ( "!" | "-" | "+" | "~" | "++" | "--" | "(" TYPE ")" ) unary | propertyAccess ;
 propertyAccess	→ call ( "." IDENTIFIER | ( "++" | "--" ) | "[" NUMBER "]" )* ;
 call			→ ( ( FUNCTION | TYPE ) "(" arguments? ")" ) | primary ;
-primary			→ NUMBER | STRING | "true" | "false" | "NULL" | "(" expression ")" | IDENTIFIER ;
+primary			→ NUMBER | STRING | "true" | "false" | "(" expression ")" | IDENTIFIER ;
 
 arguments		→ expression ( "," expression )* ;
 

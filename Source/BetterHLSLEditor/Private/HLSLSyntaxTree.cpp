@@ -381,7 +381,7 @@ TSharedPtr<FStatement> FHLSLSyntaxTree::ForStatement()
 	}
 
 	// If there is no loop condition, assume true to make an infinite loop
-	if (!Condition) Condition = MakeShared<FLiteral>("true");
+	if (!Condition) Condition = MakeShared<FLiteral>(EValueType::Bool);
 	Body = MakeShared<FWhileStatement>(Condition, Body);
 
 	// If there is an initializer prepend it into a block before the while loop
@@ -665,11 +665,11 @@ TSharedPtr<FExpression> FHLSLSyntaxTree::Unary()
 		FHLSLToken Operator = Previous();
 		return MakeShared<FUnary>(Operator, Unary());
 	}
-	
+
 	if (Check(EHLSLTokenType::LeftParenthesis) && Peek(1).Type == EHLSLTokenType::PrimitiveType)
 	{
-		Advance();	// Consume the parenthesis
-		FHLSLToken TypeName = Advance();	// Consume the typename
+		Advance(); // Consume the parenthesis
+		FHLSLToken TypeName = Advance(); // Consume the typename
 		Consume(EHLSLTokenType::RightParenthesis, "Expected right parenthesis after C-style cast");
 		return MakeShared<FCast>(TypeName.Source, Unary());
 	}
@@ -738,15 +738,33 @@ TSharedPtr<FExpression> FHLSLSyntaxTree::FinishCall(FHLSLToken Callee)
 }
 
 
-// primary        → NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" | IDENTIFIER ;
+// primary        → NUMBER | STRING | "true" | "false" | "(" expression ")" | IDENTIFIER ;
 TSharedPtr<FExpression> FHLSLSyntaxTree::Primary()
 {
 	if (Match({
-		EHLSLTokenType::True, EHLSLTokenType::False, EHLSLTokenType::Null, EHLSLTokenType::Number,
+		EHLSLTokenType::True, EHLSLTokenType::False, EHLSLTokenType::Number,
 		EHLSLTokenType::String
 	}))
 	{
-		return MakeShared<FLiteral>(Previous().Source);
+		EValueType Type;
+		switch (Previous().Type)
+		{
+		case EHLSLTokenType::True:
+		case EHLSLTokenType::False:
+			Type = EValueType::Bool;
+			break;
+
+		default:
+		case EHLSLTokenType::Number:
+			Type = EValueType::Double; // Number literals default to doubles
+			break;
+
+		case EHLSLTokenType::String:
+			Type = EValueType::String;
+			break;
+		}
+
+		return MakeShared<FLiteral>(Type);
 	}
 
 	if (Match(EHLSLTokenType::CustomIdentifier))

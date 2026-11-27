@@ -199,7 +199,111 @@ const TArray<const TCHAR*> HlslTypeKeywords = TArray(
 );
 
 // HLSL primitive types
-const TArray<const TCHAR*> HlslPrimitiveTypes = TArray(
+const TArray<const TCHAR*> BoolKeywords = TArray(
+	{
+		TEXT("bool4x4"),
+		TEXT("bool4x3"),
+		TEXT("bool4x2"),
+		TEXT("bool4x1"),
+		TEXT("bool4"),
+		TEXT("bool3x4"),
+		TEXT("bool3x3"),
+		TEXT("bool3x2"),
+		TEXT("bool3x1"),
+		TEXT("bool3"),
+		TEXT("bool2x4"),
+		TEXT("bool2x3"),
+		TEXT("bool2x2"),
+		TEXT("bool2x1"),
+		TEXT("bool2"),
+		TEXT("bool1x4"),
+		TEXT("bool1x3"),
+		TEXT("bool1x2"),
+		TEXT("bool1x1"),
+		TEXT("bool1"),
+		TEXT("bool")
+	}
+);
+
+const TArray<const TCHAR*> HalfKeywords = TArray(
+	{
+		TEXT("half4x4"),
+		TEXT("half4x3"),
+		TEXT("half4x2"),
+		TEXT("half4x1"),
+		TEXT("half4"),
+		TEXT("half3x4"),
+		TEXT("half3x3"),
+		TEXT("half3x2"),
+		TEXT("half3x1"),
+		TEXT("half3"),
+		TEXT("half2x4"),
+		TEXT("half2x3"),
+		TEXT("half2x2"),
+		TEXT("half2x1"),
+		TEXT("half2"),
+		TEXT("half1x4"),
+		TEXT("half1x3"),
+		TEXT("half1x2"),
+		TEXT("half1x1"),
+		TEXT("half1"),
+		TEXT("half")
+	}
+);
+
+const TArray<const TCHAR*> FloatKeywords = TArray(
+	{
+		TEXT("float4x4"),
+		TEXT("float4x3"),
+		TEXT("float4x2"),
+		TEXT("float4x1"),
+		TEXT("float4"),
+		TEXT("float3x4"),
+		TEXT("float3x3"),
+		TEXT("float3x2"),
+		TEXT("float3x1"),
+		TEXT("float3"),
+		TEXT("float2x4"),
+		TEXT("float2x3"),
+		TEXT("float2x2"),
+		TEXT("float2x1"),
+		TEXT("float2"),
+		TEXT("float1x4"),
+		TEXT("float1x3"),
+		TEXT("float1x2"),
+		TEXT("float1x1"),
+		TEXT("float1"),
+		TEXT("float")
+	}
+);
+
+const TArray<const TCHAR*> DoubleKeywords = TArray(
+	{
+		TEXT("double4x4"),
+		TEXT("double4x3"),
+		TEXT("double4x2"),
+		TEXT("double4x1"),
+		TEXT("double4"),
+		TEXT("double3x4"),
+		TEXT("double3x3"),
+		TEXT("double3x2"),
+		TEXT("double3x1"),
+		TEXT("double3"),
+		TEXT("double2x4"),
+		TEXT("double2x3"),
+		TEXT("double2x2"),
+		TEXT("double2x1"),
+		TEXT("double2"),
+		TEXT("double1x4"),
+		TEXT("double1x3"),
+		TEXT("double1x2"),
+		TEXT("double1x1"),
+		TEXT("double1"),
+		TEXT("double")
+	}
+);
+
+const TArray<const TCHAR*> UintKeywords = TArray(
 	{
 		// uints
 		TEXT("uint4x4"),
@@ -224,7 +328,33 @@ const TArray<const TCHAR*> HlslPrimitiveTypes = TArray(
 		TEXT("uint1"),
 		TEXT("uint"),
 
-		// ints
+		// dwords
+		TEXT("dword4x4"),
+		TEXT("dword4x3"),
+		TEXT("dword4x2"),
+		TEXT("dword4x1"),
+		TEXT("dword4"),
+		TEXT("dword3x4"),
+		TEXT("dword3x3"),
+		TEXT("dword3x2"),
+		TEXT("dword3x1"),
+		TEXT("dword3"),
+		TEXT("dword2x4"),
+		TEXT("dword2x3"),
+		TEXT("dword2x2"),
+		TEXT("dword2x1"),
+		TEXT("dword2"),
+		TEXT("dword1x4"),
+		TEXT("dword1x3"),
+		TEXT("dword1x2"),
+		TEXT("dword1x1"),
+		TEXT("dword1"),
+		TEXT("dword")
+	}
+);
+
+const TArray<const TCHAR*> IntKeywords = TArray(
+	{
 		TEXT("int4x4"),
 		TEXT("int4x3"),
 		TEXT("int4x2"),
@@ -245,84 +375,7 @@ const TArray<const TCHAR*> HlslPrimitiveTypes = TArray(
 		TEXT("int1x2"),
 		TEXT("int1x1"),
 		TEXT("int1"),
-		TEXT("int"),
-
-		// halfs
-		TEXT("half4x4"),
-		TEXT("half4x3"),
-		TEXT("half4x2"),
-		TEXT("half4x1"),
-		TEXT("half4"),
-		TEXT("half3x4"),
-		TEXT("half3x3"),
-		TEXT("half3x2"),
-		TEXT("half3x1"),
-		TEXT("half3"),
-		TEXT("half2x4"),
-		TEXT("half2x3"),
-		TEXT("half2x2"),
-		TEXT("half2x1"),
-		TEXT("half2"),
-		TEXT("half1x4"),
-		TEXT("half1x3"),
-		TEXT("half1x2"),
-		TEXT("half1x1"),
-		TEXT("half1"),
-		TEXT("half"),
-
-		// floats
-		TEXT("float4x4"),
-		TEXT("float4x3"),
-		TEXT("float4x2"),
-		TEXT("float4x1"),
-		TEXT("float4"),
-		TEXT("float3x4"),
-		TEXT("float3x3"),
-		TEXT("float3x2"),
-		TEXT("float3x1"),
-		TEXT("float3"),
-		TEXT("float2x4"),
-		TEXT("float2x3"),
-		TEXT("float2x2"),
-		TEXT("float2x1"),
-		TEXT("float2"),
-		TEXT("float1x4"),
-		TEXT("float1x3"),
-		TEXT("float1x2"),
-		TEXT("float1x1"),
-		TEXT("float1"),
-		TEXT("float"),
-
-		// bools
-		TEXT("bool4x4"),
-		TEXT("bool4x3"),
-		TEXT("bool4x2"),
-		TEXT("bool4x1"),
-		TEXT("bool4"),
-		TEXT("bool3x4"),
-		TEXT("bool3x3"),
-		TEXT("bool3x2"),
-		TEXT("bool3x1"),
-		TEXT("bool3"),
-		TEXT("bool2x4"),
-		TEXT("bool2x3"),
-		TEXT("bool2x2"),
-		TEXT("bool2x1"),
-		TEXT("bool2"),
-		TEXT("bool1x4"),
-		TEXT("bool1x3"),
-		TEXT("bool1x2"),
-		TEXT("bool1x1"),
-		TEXT("bool1"),
-		TEXT("bool"),
-
-		// misc
-		TEXT("void"),
-		TEXT("vector"),
-		TEXT("dword"),
-		TEXT("double"),
-		TEXT("matrix"),
-		TEXT("Buffer"),
+		TEXT("int")
 	}
 );
 #pragma endregion
@@ -332,7 +385,18 @@ enum class EHLSLTokenType
 {
 	// Identifiers
 	CustomIdentifier,
-	PrimitiveType,
+
+	Bool,
+	Half,
+	Float,
+	Double,
+	Uint, // Also includes 'dword' types, since they are the same in practice
+	Int,
+
+	Vector,
+	Matrix,
+	Buffer,
+
 	TypeKeyword,
 	Function,
 	Keyword,
@@ -354,7 +418,6 @@ enum class EHLSLTokenType
 	// Literals
 	True,
 	False,
-	Null,
 	String,
 	Number,
 

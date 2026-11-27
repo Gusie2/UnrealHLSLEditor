@@ -6,6 +6,17 @@
  * https://craftinginterpreters.com/representing-code.html
  */
 
+enum class EValueType
+{
+	Bool,
+	Half,
+	Float,
+	Double,
+	Uint, // Also includes 'dword' types, since they are actually the same type
+	Int,
+	String
+};
+
 class FExpression
 {
 public:
@@ -13,6 +24,8 @@ public:
 	virtual ~FExpression() = default;
 
 	virtual bool IsAssignable() const = 0;
+
+	virtual EValueType GetType() const = 0;
 
 	// Debug function to print the tree as a string representation
 	virtual FString Print() const = 0;
@@ -106,7 +119,7 @@ public:
 class FLiteral : public FExpression
 {
 public:
-	explicit FLiteral(const FString& Value) : Value(Value)
+	explicit FLiteral(const EValueType& Type) : Type(Type)
 	{
 	}
 
@@ -114,7 +127,9 @@ public:
 
 	virtual bool IsAssignable() const override { return false; }
 
-	FString Value; // String representation of the literal value, as it is in the source code
+	virtual EValueType GetType() const override { return Type; }
+
+	EValueType Type; // String representation of the literal value, as it is in the source code
 };
 
 class FGrouping : public FExpression
@@ -151,12 +166,15 @@ public:
 class FCast : public FExpression
 {
 public:
-	FCast(const FString& TypeName, const TSharedPtr<FExpression>& Expression) : TypeName(TypeName), Expression(Expression) {}
-	
+	FCast(const FString& TypeName, const TSharedPtr<FExpression>& Expression) : TypeName(TypeName),
+		Expression(Expression)
+	{
+	}
+
 	virtual FString Print() const override;
-	
+
 	virtual bool IsAssignable() const override { return false; }
-	
+
 private:
 	FString TypeName;
 	TSharedPtr<FExpression> Expression;
